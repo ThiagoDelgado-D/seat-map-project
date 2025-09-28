@@ -1,4 +1,4 @@
-import { FeatureSection, HeroSection, LogosSection, StatsSection } from "@/components/home";
+import { CTASection, FeatureSection, HeroSection, LogosSection, StatsSection } from "@/components/home";
 import { features_section, renderer_features } from "@/constants/features";
 import { TRUSTED_COMPANIES } from "@/constants/logos";
 import { SEAT_MAP_STATS } from "@/constants/stats";
@@ -32,6 +32,13 @@ export default function Home() {
           variant="default"
           imagePosition="center"
           ctaText="See documentation"
+        />
+        <CTASection
+          title="Start integrating today."
+          subtitle="Free testing account with technical support for integration."
+          planName="Pricing plans"
+          ctaText="Sign up"
+          variant="default"
         />
       </div>
     </>

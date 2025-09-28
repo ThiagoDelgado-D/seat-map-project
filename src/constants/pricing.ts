@@ -1,3 +1,16 @@
+export interface EnterprisePlan {
+  id: string;
+  name: string;
+  monthly: {
+    seats: string;
+    pricePerSeat: string;
+  };
+  yearly: {
+    seats: string;
+    pricePerSeat: string;
+  };
+}
+
 export const PRICING_FEATURES = [
   {
     id: "value-based",
@@ -32,32 +45,27 @@ export const PRICING_FAQS = [
   {
     id: "faq-1",
     question: "How is a 'used seat' defined?",
-    answer:
-      "A seat is considered 'used' when it is effectively booked, selected, or assigned to a channel for a performance or event. Each seat is billed only once per event.",
+    answer: "A seat is considered 'used' when it is effectively booked, selected, or assigned to a channel for a performance or event. Each seat is billed only once per event.",
   },
   {
     id: "faq-2",
     question: "Can I change my plan at any time?",
-    answer:
-      "Yes, we offer full flexibility. You can change your subscription plan at any time to adapt to your changing needs.",
+    answer: "Yes, we offer full flexibility. You can change your subscription plan at any time to adapt to your changing needs.",
   },
   {
     id: "faq-3",
     question: "What happens if I use fewer seats than my minimum commitment?",
-    answer:
-      "The minimum commitment represents the number of seats you pay for each month or year, regardless of usage. If you use fewer seats, you'll still be billed for the minimum commitment.",
+    answer: "The minimum commitment represents the number of seats you pay for each month or year, regardless of usage. If you use fewer seats, you'll still be billed for the minimum commitment.",
   },
   {
     id: "faq-4",
     question: "Are there volume discounts?",
-    answer:
-      "Yes, we offer progressive discounts for larger commitments. Contact our sales team for customized pricing for large organizations.",
+    answer: "Yes, we offer progressive discounts for larger commitments. Contact our sales team for customized pricing for large organizations.",
   },
   {
     id: "faq-5",
     question: "How is billing handled?",
-    answer:
-      "Billing occurs monthly or annually based on your plan. You'll receive a detailed invoice showing your minimum commitment and any additional seat usage.",
+    answer: "Billing occurs monthly or annually based on your plan. You'll receive a detailed invoice showing your minimum commitment and any additional seat usage.",
   },
 ];
 
@@ -91,3 +99,67 @@ export const PRICING_PLANS = [
     }
   }
 ];
+
+export const ENTERPRISE_PLANS: EnterprisePlan[] = [
+  {
+    id: "diamond",
+    name: "Diamond",
+    monthly: {
+      seats: "20,000",
+      pricePerSeat: "€0.10"
+    },
+    yearly: {
+      seats: "240,000",
+      pricePerSeat: "€0.10"
+    }
+  },
+  {
+    id: "platinum",
+    name: "Platinum",
+    monthly: {
+      seats: "50,000", 
+      pricePerSeat: "€0.08"
+    },
+    yearly: {
+      seats: "600,000",
+      pricePerSeat: "€0.08"
+    }
+  },
+  {
+    id: "mithril",
+    name: "Mithril",
+    monthly: {
+      seats: "100,000",
+      pricePerSeat: "€0.07"
+    },
+    yearly: {
+      seats: "1,200,000",
+      pricePerSeat: "€0.07"
+    }
+  },
+  {
+    id: "palladium",
+    name: "Palladium",
+    monthly: {
+      seats: "250,000",
+      pricePerSeat: "€0.06"
+    },
+    yearly: {
+      seats: "3,000,000",
+      pricePerSeat: "€0.06"
+    }
+  },
+  {
+    id: "rhodium",
+    name: "Rhodium",
+    monthly: {
+      seats: "500,000",
+      pricePerSeat: "€0.05"
+    },
+    yearly: {
+      seats: "6,000,000", 
+      pricePerSeat: "€0.05"
+    }
+  }
+];
+export const DEFAULT_PLANS = ENTERPRISE_PLANS;

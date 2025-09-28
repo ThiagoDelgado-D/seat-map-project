@@ -20,14 +20,14 @@ interface PricingCardProps {
   onViewExample: (planId: string) => void;
 }
 
-export function PricingCard({ 
-  plan, 
-  billingPeriod, 
-  onSelectPlan, 
-  onViewExample 
+export function PricingCard({
+  plan,
+  billingPeriod,
+  onSelectPlan,
+  onViewExample
 }: PricingCardProps) {
   const periodLabel = billingPeriod === "monthly" ? "month" : "year";
-  
+
   return (
     <div
       className={clx(
@@ -44,7 +44,7 @@ export function PricingCard({
           </span>
         </div>
       )}
-      
+
       <div className="p-8">
         <div className="text-center mb-6">
           <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -66,7 +66,7 @@ export function PricingCard({
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
           <div className="text-center">
             <div className="text-2xl font-bold text-gray-900 mb-1">
-              {plan.usedSeats.toLocaleString()}
+              {plan.usedSeats.toLocaleString("en-US")}
             </div>
             <div className="text-sm text-gray-600">
               used seats per {periodLabel}
@@ -84,20 +84,20 @@ export function PricingCard({
         </div>
 
         <div className="space-y-3">
-          <Button 
+          <Button
             onClick={() => onSelectPlan(plan.id)}
             flavor="raised"
             color={plan.featured ? "primary" : "secondary"}
             fullWidth
             size="lg"
           >
-            {billingPeriod === "monthly" 
+            {billingPeriod === "monthly"
               ? `Monthly ${plan.name}`
               : `Yearly ${plan.name}`
             }
           </Button>
-          
-          <Button 
+
+          <Button
             onClick={() => onViewExample(plan.id)}
             flavor="clear"
             color="primary"

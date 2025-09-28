@@ -1,0 +1,1 @@
+export { FeatureSection, type FeatureSectionProps, type FeatureItem } from './features-section';

@@ -58,3 +58,26 @@ export const STUDIO_STATS: StatItem[] = [
     description: 'Reliable service availability'
   }
 ];
+
+export const PRICING_STATS = [
+  {
+    id: "stat-1",
+    value: "99.9%",
+    label: "Uptime Guarantee"
+  },
+  {
+    id: "stat-2",
+    value: "24/7",
+    label: "Customer Support"
+  },
+  {
+    id: "stat-3",
+    value: "100+",
+    label: "Integrations"
+  },
+  {
+    id: "stat-4", 
+    value: "10K+",
+    label: "Events Managed"
+  }
+];

@@ -1,9 +1,11 @@
+// components/home/features-section.tsx
 "use client";
 
 import { DefaultProps } from "@/utils/components";
 import { clx } from "@/utils/styles";
 import Image from "next/image";
 import { PropsWithChildren } from "react";
+import Link from "next/link";
 
 export interface FeatureItem {
   id: string;
@@ -21,6 +23,7 @@ export interface FeatureSectionProps extends DefaultProps {
     imagePosition?: "left" | "right" | "center";
     onCtaClick?: () => void;
     onImageClick?: () => void;
+    id?: string;
 }
 
 export function FeatureSection({
@@ -37,11 +40,12 @@ export function FeatureSection({
     ctaText = "Learn more",
     variant = "dark",
     imagePosition = "center",
-    onCtaClick,
     onImageClick,
+    id,
 }: PropsWithChildren<FeatureSectionProps>) {
     return (
         <section
+            id={id}
             className={clx(
                 "w-full py-16 sm:py-20 lg:py-24 relative overflow-hidden",
                 
@@ -110,11 +114,8 @@ export function FeatureSection({
                                 "pt-4",
                                 imagePosition === "center" && "flex justify-center"
                             )}>
-                                <button
-                                    onClick={(evt) => {
-                                        evt.stopPropagation();
-                                        onCtaClick?.();
-                                    }}
+                                <Link
+                                    href="/demo"
                                     className={clx(
                                         "inline-flex items-center px-6 py-3 rounded-lg font-medium transition-all duration-200",
                                         "border-2 border-white/20 text-white hover:bg-white/10 hover:border-white/30",
@@ -131,7 +132,7 @@ export function FeatureSection({
                                     >
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                     </svg>
-                                </button>
+                                </Link>
                             </div>
                         )}
 

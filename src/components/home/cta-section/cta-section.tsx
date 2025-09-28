@@ -12,6 +12,7 @@ export interface CTASectionProps extends DefaultProps {
     ctaText?: string;
     variant?: "default" | "dark" | "gradient";
     onCtaClick?: () => void;
+    id?: string
 }
 
 export function CTASection({
@@ -25,9 +26,11 @@ export function CTASection({
     planName = "Pricing plans",
     ctaText = "Sign up",
     variant = "default",
+    id,
 }: PropsWithChildren<CTASectionProps>) {
     return (
         <section
+            id={id}
             className={clx(
                 "w-full py-16 sm:py-20 lg:py-24 relative overflow-hidden",
                 

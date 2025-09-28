@@ -3,6 +3,7 @@ import { PropsWithChildren, useState } from "react";
 import { HeaderLogo } from "./header-logo";
 import { Button } from "@/components/ui/button/button";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 export interface HeaderProps {
   className?: string;
@@ -24,7 +25,12 @@ export function Header({
 }: PropsWithChildren<HeaderProps>) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navLinks = ["Features", "Demos", "Pricing", "Learn"];
+  const navLinks = [
+    { name: "Features", href: "#features" },
+    { name: "Demos", href: "/demo" },
+    { name: "Pricing", href: "#pricing" },
+    { name: "Learn", href: "/docs" }
+  ];
 
   return (
     <header
@@ -43,9 +49,9 @@ export function Header({
 
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
-                key={link}
-                href="#"
+              <Link
+                key={link.name}
+                href={link.href}
                 className={clx(
                   "text-sm font-medium transition-colors hover:opacity-80",
                   variant === "dark"
@@ -53,8 +59,8 @@ export function Header({
                     : "text-foreground",
                 )}
               >
-                {link}
-              </a>
+                {link.name}
+              </Link>
             ))}
           </nav>
 
@@ -113,18 +119,19 @@ export function Header({
           >
             <div className="px-4 py-3 space-y-4">
               {navLinks.map((link) => (
-                <a
-                  key={link}
-                  href="#"
+                <Link
+                  key={link.name}
+                  href={link.href}
                   className={clx(
                     "block text-sm font-medium py-2 transition-colors",
                     variant === "dark"
                       ? "text-header-dark-foreground hover:opacity-80"
                       : "text-foreground hover:opacity-80",
                   )}
+                  onClick={() => setMobileOpen(false)}
                 >
-                  {link}
-                </a>
+                  {link.name}
+                </Link>
               ))}
               <div className="flex flex-col gap-3 pt-4">
                 <Button

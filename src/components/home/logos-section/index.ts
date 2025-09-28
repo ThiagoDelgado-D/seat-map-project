@@ -1,0 +1,1 @@
+export { LogosSection, type LogosSectionProps } from './logos-section';

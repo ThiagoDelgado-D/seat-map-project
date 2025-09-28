@@ -1,0 +1,202 @@
+/* Hero Section Custom Styles */
+.hero {
+  text-align: center;
+}
+
+.hero .description {
+  margin: 30px 0;
+}
+
+.hero p {
+  font-size: 20px;
+  padding: 0 10vw;
+  font-weight: 500;
+  margin: 0em;
+}
+
+@media (max-width: 499px) {
+  .hero p {
+    padding: 0 30px;
+    margin: 1em 0;
+    font-size: 20px;
+    line-height: 1.2em;
+  }
+}
+
+.homepage.hero {
+  position: relative;
+  padding-top: 80px;
+  padding-bottom: 165px;
+  overflow: hidden;
+  background-color: #0b0909;
+}
+
+.homepage.hero > .stage-scene {
+  animation: incandescent-light-on 2s cubic-bezier(0.19, 1, 0.22, 1) backwards 0.5s;
+}
+
+.homepage.hero > .stage-scene > .spotlight {
+  position: absolute;
+  left: -460px;
+  top: 0px;
+  right: -60px;
+  bottom: 0;
+  background: radial-gradient(1300px 400px at 50% 56%, #ffffff, #e7f5fe 5%, #424a6a 30%, #282136 32%, #13070d 60%, #100404 95%);
+  animation: skylight-translation 20s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+}
+
+.homepage.hero > .stage-scene > .spotlight-rays {
+  --size: 1000px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--size);
+  height: var(--size);
+  margin-left: -700px;
+  background: url("/assets/seatsio-website-v2-prod-00066-csw/static/spotlight.png") no-repeat;
+  background-position: left top;
+  background-size: 100%;
+  animation: skylight-translation 20s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+}
+
+.homepage.hero > .stage-scene > .skylight {
+  --background-size-x: 1600px;
+  position: absolute;
+  left: -400px;
+  top: 0px;
+  right: -50px;
+  height: 100px;
+  background: radial-gradient(var(--background-size-x) 50% at 50% 50%, hsl(199, 100%, 96%) 0%, hsl(199, 91%, 79%) 2%, hsla(234, 44%, 38%, 0.466) 30%, hsla(0, 34%, 14%, 0) 100%);
+  animation: skylight-dimming 6s ease-in-out infinite;
+}
+
+@keyframes skylight-translation {
+  from,
+  to {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes skylight-dimming {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes incandescent-light-on {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.homepage.hero .page-container {
+  position: relative;
+  z-index: 5;
+}
+
+.homepage.hero h1,
+.homepage.hero h2,
+.homepage.hero h3 {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.homepage.hero .movie-compound {
+  position: relative;
+  margin: 60px 0;
+  animation: incandescent-light-on 2s cubic-bezier(0.19, 1, 0.22, 1) backwards 0.5s;
+}
+
+.homepage.hero .hint {
+  position: absolute;
+  bottom: -34px;
+  left: 0;
+  right: 0;
+  color: hsl(218, 29%, 63%);
+  font-size: 14px;
+  font-weight: bolder;
+  text-align: center;
+  animation: incandescent-light-on 2s cubic-bezier(0.19, 1, 0.22, 1) backwards 1.2s;
+}
+
+.homepage.hero h1 {
+  position: relative;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 0.92em;
+  animation: incandescent-light-on 2s cubic-bezier(0.19, 1, 0.22, 1) backwards 0.25s;
+  text-transform: uppercase;
+}
+
+@media (min-width: 800px) {
+  .homepage.hero h1 {
+    width: 400px;
+    margin-left: 90px;
+    top: 10px;
+  }
+}
+
+@media (max-width: 799px) {
+  .homepage.hero h1 {
+    font-size: 40px;
+    width: 300px;
+    text-align: center;
+  }
+}
+
+.homepage.hero h2 {
+  font-weight: 600;
+}
+
+@media (min-width: 800px) {
+  .homepage.hero h2 {
+    margin-top: 160px;
+  }
+}
+
+@media (max-width: 799px) {
+  .homepage.hero h2 {
+    margin-top: 130px;
+  }
+}
+
+.homepage.hero .flex-reactive {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+@media (max-width: 799px) {
+  .homepage.hero {
+    padding-top: 90px;
+  }
+  .homepage.hero .movie-compound {
+    margin-top: 40px;
+  }
+  .homepage.hero .movie-compound .device-asset.mobile {
+    --video-height: 560px;
+  }
+  .homepage.hero > .stage-scene .spotlight-rays {
+    --size: 900px;
+    margin-left: calc(var(--size) / -2);
+  }
+  .homepage.hero > .stage-scene .spotlight {
+    left: -100px;
+    right: -100px;
+  }
+  .homepage.hero > .stage-scene .skylight {
+    --background-size-x: 800px;
+    left: -100px;
+    right: -100px;
+  }
+}

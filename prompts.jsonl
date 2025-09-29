@@ -67,3 +67,82 @@
     "prompt": "por ultimo y hablando sobre las pages, se orquesto esto de tal forma que la logica se abstrenga de manejarse directamente en la pagina, algunos ejemplos:",
     "notes": "Diseño de arquitectura donde las páginas solo orquestan y la lógica reside en componentes"
 }
+{
+    "timestamp": "2025-01-29T12:00:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Análisis de referencia UI y selección de librerías",
+    "prompt": "necesito que revises esa UI: https://www.seats.io/ y me des sugerencias de librerias con las cuales podria implementar algo similar a por ejemplo lo de los asientos",
+    "notes": "Investigación de Konva.js, Fabric.js, D3.js para renderizado de canvas interactivo. Seleccionado Konva.js por performance y manejo nativo de eventos"
+}
+
+{
+    "timestamp": "2025-01-29T13:30:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Implementación de secciones Home: Stats y Logos",
+    "prompt": "esta es la siguiente accion, podemos almacenar esa informacion en una constante, y hacemos un componente para ir iterando sobre ese mismo. Esta seria algo como stats section por ejemplo",
+    "notes": "Desarrollo de StatsSection con gradientes inspirados en seats.io y LogosSection con carousel infinito animado"
+}
+
+{
+    "timestamp": "2025-01-29T14:45:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Implementación de FeatureSection con backgrounds complejos",
+    "prompt": "esta es la siguiente seccion, ya descargue esa imagen, esta ubicada en /sit-manager.png, no utilices la etiqueta styles, en caso de ser falta estilos para el fondo, puede agregarse respectivamente en el globals.css",
+    "notes": "FeatureSection con gradientes dark mode, grid patterns en CSS puro sin style tags inline, manteniendo arquitectura limpia"
+}
+
+{
+    "timestamp": "2025-01-29T16:00:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Core del proyecto: Implementación SeatMapEditor",
+    "prompt": "estoy implementando actualmente la parte importante de la prueba tecnica, que seria el: Exportar JSON, Importar JSON, Mapa donde se vean filas y asientos, Crear filas (una y múltiples), Seleccionar filas (simple/múltiple) para etiquetar y borrar. Para eso ya me instale zustand para gestionar el estado global",
+    "notes": "Implementación del store con Zustand, tipos TypeScript para Seat/Row/SeatMap, constantes para dimensiones de asientos"
+}
+
+{
+    "timestamp": "2025-01-29T17:15:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Resolución de errores de tipos en Konva.js",
+    "prompt": "tengo este problema de tipos en canvas: Argument of type 'KonvaEventObject<Event>' is not assignable to parameter of type 'KonvaEventObject<MouseEvent>'. Type 'Event' is missing the following properties from type 'MouseEvent': altKey, button, buttons, clientX, and 23 more",
+    "notes": "Solución con handleGenericEvent wrapper para normalizar eventos táctiles y de mouse en Konva, manteniendo type safety"
+}
+
+{
+    "timestamp": "2025-01-29T18:00:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Storybooks para componentes del editor",
+    "prompt": "necesito que me des tambien la estructura para los storybooks de Canvas, Toolbar, Modal, y SeatMapEditor, siguiendo el patron que ya tenemos establecido",
+    "notes": "Generación de stories con mocks del store, diferentes estados (empty, with data, with selections), viewport responsive testing"
+}
+
+{
+    "timestamp": "2025-01-29T19:30:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Verificación de cumplimiento de requerimientos MVP",
+    "prompt": "estoy revisando para observar si lo que actualmente tengo cumple por lo pedido para la prueba tecnica: [requerimientos completos]. Necesito que me ayudes a identificar qué falta",
+    "notes": "Identificación de features faltantes: etiquetado batch con patrones, confirmación de nombre antes de export, UI de etiquetado"
+}
+
+{
+    "timestamp": "2025-01-29T20:00:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Implementación de LabelingModal para etiquetado batch",
+    "prompt": "Necesito implementar el etiquetado rápido/batch con patrones (p. ej. Platea 1..N, A1..A10) que es un requerimiento crítico faltante",
+    "notes": "LabelingModal con preview en tiempo real, ejemplos rápidos de patrones, soporte para placeholder {n} y texto fijo"
+}
+
+{
+    "timestamp": "2025-01-29T20:45:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Mejora de persistencia: guardar selecciones en JSON",
+    "prompt": "cuando export e importo, no se carga solo el mapa sino tambien lo que seleccione y le puse etiqueta",
+    "notes": "Extensión del schema SeatMap con workState opcional para preservar selectedRows/selectedSeats, manteniendo retrocompatibilidad"
+}
+
+{
+    "timestamp": "2025-01-29T21:30:00Z",
+    "tool/model": "Claude Sonnet 4.5",
+    "purpose": "Preparación de entregables finales",
+    "prompt": "ya termine todo y ahora me queda armar el mail para enviar la prueba técnica con repo, README y prompts.jsonl",
+    "notes": "Estructuración de email profesional, checklist de entregables, formato de prompts.jsonl con timestamps y propósitos claros"
+}

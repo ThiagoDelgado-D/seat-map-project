@@ -91,10 +91,8 @@ export function Footer({
             onMouseLeave={onMouseLeave}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Main Footer Content */}
                 <div className="py-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {/* Company Info */}
                         <div className="lg:col-span-1">
                             <div className="flex items-center gap-2 mb-4">
                                 <div className={clx(
@@ -117,7 +115,6 @@ export function Footer({
                                 {description}
                             </p>
                             
-                            {/* Social Links */}
                             {showSocial && (
                                 <div className="flex gap-4 mt-6">
                                     {['twitter', 'github', 'linkedin'].map((social) => (

@@ -24,17 +24,24 @@ export interface SeatMap {
   rows: Row[];
   width: number;
   height: number;
+  workState?: {
+    selectedRows: string[];
+    selectedSeats: string[];
+  };
 }
 
 export interface SeatMapState {
   currentMap: SeatMap | null;
   selectedRows: string[];
   selectedSeats: string[];
-  
-  // Actions
   createNewMap: (name: string) => void;
   addRow: (x: number, y: number, seatsCount: number) => void;
-  addMultipleRows: (startX: number, startY: number, rowCount: number, seatsPerRow: number) => void;
+  addMultipleRows: (
+    startX: number,
+    startY: number,
+    rowCount: number,
+    seatsPerRow: number
+  ) => void;
   selectRow: (rowId: string, multiple?: boolean) => void;
   selectSeat: (seatId: string, multiple?: boolean) => void;
   updateRowLabel: (rowId: string, label: string) => void;
@@ -46,4 +53,6 @@ export interface SeatMapState {
   exportMap: () => string;
   importMap: (jsonData: string) => boolean;
   clearMap: () => void;
+  setSelectedRows: (rows: string[]) => void;
+  setSelectedSeats: (seats: string[]) => void;
 }

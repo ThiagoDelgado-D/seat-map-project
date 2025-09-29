@@ -186,21 +186,32 @@ export const useSeatMapStore = create<SeatMapState>((set, get) => ({
   exportMap: () => {
     const state = get();
     if (!state.currentMap) return "";
-    return JSON.stringify(state.currentMap, null, 2);
+
+    const exportData = {
+      ...state.currentMap,
+      workState: {
+        selectedRows: state.selectedRows,
+        selectedSeats: state.selectedSeats,
+      },
+    };
+
+    return JSON.stringify(exportData, null, 2);
   },
 
   importMap: (jsonData: string) => {
     try {
       const mapData = JSON.parse(jsonData) as SeatMap;
-      // Basic validation
+
       if (!mapData.id || !mapData.name || !Array.isArray(mapData.rows)) {
         return false;
       }
+
       set({
         currentMap: mapData,
-        selectedRows: [],
-        selectedSeats: [],
+        selectedRows: mapData.workState?.selectedRows || [],
+        selectedSeats: mapData.workState?.selectedSeats || [],
       });
+
       return true;
     } catch {
       return false;
@@ -210,4 +221,6 @@ export const useSeatMapStore = create<SeatMapState>((set, get) => ({
   clearMap: () => {
     set({ currentMap: null, selectedRows: [], selectedSeats: [] });
   },
+  setSelectedRows: (rows: string[]) => set({ selectedRows: rows }),
+  setSelectedSeats: (seats: string[]) => set({ selectedSeats: seats }),
 }));

@@ -85,3 +85,61 @@ export const categories = [
     count: TEMPLATES.filter((t) => t.category === "conference").length,
   },
 ];
+
+export const EXAMPLES: Example[] = [
+  {
+    id: "broadway-theater",
+    name: "Teatro Broadway",
+    description: "Teatro clásico con múltiples niveles y palcos",
+    complexity: "complex",
+    useCase: "Eventos teatrales y musicales",
+    image: "/examples/broadway.png",
+  },
+  {
+    id: "sports-arena",
+    name: "Arena Deportiva",
+    description: "Estadio moderno con gradas retráctiles",
+    complexity: "complex",
+    useCase: "Deportes y conciertos",
+    image: "/examples/sports-arena.png",
+  },
+  {
+    id: "conference-center",
+    name: "Centro de Convenciones",
+    description: "Múltiples salas configurables",
+    complexity: "medium",
+    useCase: "Conferencias y convenciones",
+    image: "/examples/conference-center.png",
+  },
+  {
+    id: "university-auditorium",
+    name: "Auditorio Universitario",
+    description: "Diseño académico con buena acústica",
+    complexity: "medium",
+    useCase: "Charlas y presentaciones",
+    image: "/examples/auditorium.png",
+  },
+  {
+    id: "small-theater",
+    name: "Teatro Íntimo",
+    description: "Espacio pequeño con distribución cercana",
+    complexity: "simple",
+    useCase: "Obras pequeñas y lecturas",
+    image: "/examples/small-theater.png",
+  },
+  {
+    id: "outdoor-stage",
+    name: "Escenario al Aire Libre",
+    description: "Configuración para eventos exteriores",
+    complexity: "simple",
+    useCase: "Festivales y eventos al aire libre",
+    image: "/examples/outdoor.png",
+  },
+];
+
+export const complexityFilters = [
+  { id: "all", name: "Todas", color: "gray" },
+  { id: "simple", name: "Simple", color: "green" },
+  { id: "medium", name: "Media", color: "yellow" },
+  { id: "complex", name: "Compleja", color: "red" },
+];

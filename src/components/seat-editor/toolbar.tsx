@@ -1,3 +1,4 @@
+// src/components/seat-editor/toolbar-updated.tsx
 'use client';
 
 import { useSeatMapStore } from '@/store/seat-map-store';
@@ -5,12 +6,16 @@ import { useState } from 'react';
 import { Button } from '../ui/button/button';
 import { Input } from '../ui/input/Input';
 import { Modal } from '../ui/modal/modal';
-
+import { LabelingModal } from './labeling-modal';
 
 export function Toolbar() {
   const [mapName, setMapName] = useState('');
   const [isNewMapOpen, setIsNewMapOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(false);
+  const [isLabelingOpen, setIsLabelingOpen] = useState(false);
+  const [labelingType, setLabelingType] = useState<'rows' | 'seats'>('rows');
+  const [exportMapName, setExportMapName] = useState('');
   const [rowCount, setRowCount] = useState(5);
   const [seatsPerRow, setSeatsPerRow] = useState(10);
   const [importData, setImportData] = useState('');
@@ -18,6 +23,7 @@ export function Toolbar() {
   const {
     currentMap,
     selectedRows,
+    selectedSeats,
     createNewMap,
     addMultipleRows,
     deleteSelectedRows,
@@ -42,19 +48,30 @@ export function Toolbar() {
     }
   };
 
-  const handleExport = () => {
-    if (!currentMap) return;
-    
+  // REQUERIMIENTO FALTANTE: Pedir nombre antes de exportar
+  const handleRequestExport = () => {
+    if (currentMap) {
+      setExportMapName(currentMap.name);
+      setIsExportOpen(true);
+    }
+  };
+
+  const handleConfirmExport = () => {
+    if (!currentMap || !exportMapName.trim()) return;
+
     const jsonData = exportMap();
     const blob = new Blob([jsonData], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${currentMap.name}.json`;
+    a.download = `${exportMapName.trim()}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+
+    setIsExportOpen(false);
+    setExportMapName('');
   };
 
   const handleImport = () => {
@@ -92,11 +109,22 @@ export function Toolbar() {
     }
   };
 
+  const handleLabelRows = () => {
+    setLabelingType('rows');
+    setIsLabelingOpen(true);
+  };
+
+  const handleLabelSeats = () => {
+    setLabelingType('seats');
+    setIsLabelingOpen(true);
+  };
+
   return (
-    <div className="flex items-center gap-4 p-4 bg-white border-b">
+    <div className="flex flex-wrap items-center gap-4 p-4 bg-white border-b">
       <Button
         flavor="outline"
         color="primary"
+        size='md'
         onClick={() => setIsNewMapOpen(true)}
       >
         📄 Nuevo Mapa
@@ -105,6 +133,7 @@ export function Toolbar() {
       <Button
         flavor="outline"
         color="secondary"
+        size='md'
         onClick={() => setIsImportOpen(true)}
       >
         📁 Importar
@@ -143,33 +172,56 @@ export function Toolbar() {
             </Button>
           </div>
 
-          {selectedRows.length > 0 && (
-            <Button 
-              onClick={handleDeleteRows} 
-              flavor="raised"
-              color="danger"
-              size="sm"
-            >
-              🗑️ Eliminar ({selectedRows.length})
-            </Button>
-          )}
+          <div className="flex items-center gap-2 border-l pl-4">
+            {selectedRows.length > 0 && (
+              <>
+                <Button
+                  onClick={handleLabelRows}
+                  flavor="outline"
+                  color="primary"
+                  size="sm"
+                >
+                  🏷️ Etiquetar Filas ({selectedRows.length})
+                </Button>
+                <Button
+                  onClick={handleDeleteRows}
+                  flavor="raised"
+                  color="danger"
+                  size="sm"
+                >
+                  🗑️ Eliminar ({selectedRows.length})
+                </Button>
+              </>
+            )}
+
+            {selectedSeats.length > 0 && (
+              <Button
+                onClick={handleLabelSeats}
+                flavor="outline"
+                color="primary"
+                size="sm"
+              >
+                🏷️ Etiquetar Asientos ({selectedSeats.length})
+              </Button>
+            )}
+          </div>
 
           <div className="flex gap-2 border-l pl-4">
-            <Button 
-              onClick={handleExport} 
-              flavor="outline" 
+            <Button
+              onClick={handleRequestExport}
+              flavor="outline"
               color="success"
               size="sm"
             >
               💾 Exportar JSON
             </Button>
 
-            <Button 
+            <Button
               onClick={() => {
                 const confirmed = window.confirm('¿Estás seguro de que quieres limpiar el mapa?');
                 if (confirmed) clearMap();
               }}
-              flavor="clear" 
+              flavor="clear"
               color="danger"
               size="sm"
             >
@@ -197,18 +249,19 @@ export function Toolbar() {
             />
           </div>
           <div className="flex gap-3 justify-end">
-            <Button 
-              flavor="clear" 
+            <Button
+              flavor="clear"
+              size='md'
               color="secondary"
               onClick={() => setIsNewMapOpen(false)}
             >
               Cancelar
             </Button>
-            <Button 
+            <Button
               flavor="raised"
               color="primary"
               size='md'
-              onClick={handleCreateMap} 
+              onClick={handleCreateMap}
               disabled={!mapName.trim()}
             >
               Crear Mapa
@@ -234,7 +287,7 @@ export function Toolbar() {
               className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             />
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               O pega el JSON aquí
@@ -248,17 +301,17 @@ export function Toolbar() {
           </div>
 
           <div className="flex gap-3 justify-end">
-            <Button 
-              flavor="clear" 
+            <Button
+              flavor="clear"
               color="secondary"
               onClick={() => setIsImportOpen(false)}
             >
               Cancelar
             </Button>
-            <Button 
+            <Button
               flavor="raised"
               color="primary"
-              onClick={handleImport} 
+              onClick={handleImport}
               disabled={!importData.trim()}
             >
               Importar
@@ -266,6 +319,55 @@ export function Toolbar() {
           </div>
         </div>
       </Modal>
+
+      <Modal
+        isOpen={isExportOpen}
+        onClose={() => setIsExportOpen(false)}
+        title="Exportar Mapa"
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Nombre del archivo
+            </label>
+            <Input
+              value={exportMapName}
+              onChange={(value) => setExportMapName(value)}
+              placeholder="Nombre del mapa"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Se agregará la extensión .json automáticamente
+            </p>
+          </div>
+
+          <div className="flex gap-3 justify-end">
+            <Button
+              flavor="clear"
+              color="secondary"
+              size='md'
+              onClick={() => setIsExportOpen(false)}
+            >
+              Cancelar
+            </Button>
+            <Button
+              flavor="raised"
+              color="success"
+              size='md'
+              onClick={handleConfirmExport}
+              disabled={!exportMapName.trim()}
+            >
+              💾 Descargar JSON
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      <LabelingModal
+        isOpen={isLabelingOpen}
+        onClose={() => setIsLabelingOpen(false)}
+        type={labelingType}
+        selectedIds={labelingType === 'rows' ? selectedRows : selectedSeats}
+      />
     </div>
   );
 }

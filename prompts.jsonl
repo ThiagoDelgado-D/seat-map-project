@@ -1,0 +1,79 @@
+{
+    "timestamp": "2024-01-15T10:00:00Z",
+    "tool/model": "Claude",
+    "purpose": "Arquitectura y planificación inicial",
+    "prompt": "voy a ir armando poco la estructura de todo esto, algunos detalles para antes de arrancar con esto, voy a utilizar zustand, typescript, y quiero utilizar tipos, arquitectura limpia, codigo limpio, y storybook para tener un design system de lo que voy haciendo, algunas preguntas para pensar que se me ocurren ahora:\n* Nombre del proyecto\n* Entidades principales\n* estructura de directorios (apuntando a algo medio pero con escalabilidad)",
+    "notes": "Definición de stack tecnológico y principios arquitectónicos"
+}
+
+{
+    "timestamp": "2024-01-15T10:30:00Z",
+    "tool/model": "Claude",
+    "purpose": "Estrategia de desarrollo y priorización",
+    "prompt": "Bien dicho esto lo que tengo pensando es primero ir implementando lo demas del sistema y no tanto el core, tengo la expectativa de para hoy cubrir las vistas que tiene cosa de dejar para el final la ultima parte, tengo pensado utilizar gsap para el apartado de animaciones y repensar algunas secciones que ya tiene cosa de dar un aspecto mas moderno, pero cada aspecto lo ire explorando poco a poco con el pasar del tiempo.",
+    "notes": "Planificación de desarrollo incremental, priorizando vistas sobre core functionality"
+}
+
+{
+    "timestamp": "2024-01-15T11:00:00Z",
+    "tool/model": "Claude",
+    "purpose": "Setup de dependencias y principios de componentes",
+    "prompt": "Ya tenemos las dependencias basicas, ahora podemos continuar con los componentes basicos segun, lo principal que busco es la modularizacion, que los componentes sean independientes, faciles de reutilizar, que si hoy uso next pero me quiero pasar a otro sea un detalle eso justamente, no hacer tanta sobre ingenieria inicial pero si estar en un punto medio",
+    "notes": "Enfoque en modularidad y desacoplamiento tecnológico"
+}
+
+{
+    "timestamp": "2024-01-15T11:30:00Z",
+    "tool/model": "Claude",
+    "purpose": "Desarrollo de componente Button con referencias",
+    "prompt": "adjunto referencias de codigo para el componente, para que nos manejemos y para tener referencias correctas:\n[code del Button component...]\nsin comentarios, pero manejandonos con interfaces, yo ya cuento de por si con una interfaz base de props, que lo que podemos hace es extender de esa o armar otras (pensando en un futuro):\n[code de DefaultProps interface...]",
+    "notes": "Desarrollo del componente Button base con sistema de props tipado y extensible"
+}
+
+{
+    "timestamp": "2024-01-15T14:20:00Z",
+    "tool/model": "Claude",
+    "purpose": "Arquitectura de servicios y separación de responsabilidades",
+    "prompt": "en la carpeta services se encuentra por ahora la declaracion de la interfaz de un solo servicio que es crypto service, la idea es que estas interfaces sean la representacion agnositca de su implementacion (otra carpeta contenida en services) las cuales pertenecen solamente al detalle de la implementacion de dicha interfaz.",
+    "notes": "Definición de patrón de servicios con interfaces agnósticas e implementaciones separadas"
+}
+
+{
+    "timestamp": "2024-01-15T14:30:00Z",
+    "tool/model": "DeepSeek",
+    "purpose": "Refactorización del componente Header",
+    "prompt": "ahora por otro lado hay que refactorizar el header para que tenga esos links y ejecute sus redirecciones correctamente: [código completo del Header component]",
+    "notes": "Implementación de navegación responsive con links de Features, Demos, Pricing, Learn y botones Login/Signup"
+}
+
+{
+    "timestamp": "2024-01-15T15:15:00Z",
+    "tool/model": "DeepSeek",
+    "purpose": "Feature de selección de servidores para login",
+    "prompt": "estaria bueno que para el login haya un mapa que permita seleccionar los servidores: South America, North America, Europe, Oceania",
+    "notes": "Sugerencia de implementar selector geográfico de servidores para optimizar latencia"
+}
+
+{
+    "timestamp": "2024-01-15T15:45:00Z",
+    "tool/model": "Claude",
+    "purpose": "Organización de componentes y estructura de carpetas",
+    "prompt": "Luego continuando con el groso de el proyecto lo cual es la carpeta components, se opto por un patron en el cual se dividen de carpetas seguidas de subcarpetas para facilitar el encontrar los componentes relacionados a X seccion o parte del codigo, por ejemplo en la carpeta /components/home se encuentran distintas subcarpetas de las respectivas secciones en el home, las cuales dentro siguen el siguiente patron",
+    "notes": "Implementación de estructura modular de componentes por funcionalidad/sección"
+}
+
+{
+    "timestamp": "2024-01-15T16:30:00Z",
+    "tool/model": "Claude",
+    "purpose": "Implementación de Storybook para testing de componentes",
+    "prompt": "Por otro lado tambien se escogio storybook para el testeo correcto del funcionamiento de los componentes, desde que cumplan con sus responsabilidades, requisitos, y correcta UX para generar una buena experiencia de usuario.",
+    "notes": "Setup de Storybook para testing visual y de funcionalidad de componentes"
+}
+
+{
+    "timestamp": "2024-01-15T17:15:00Z",
+    "tool/model": "Claude",
+    "purpose": "Arquitectura de páginas y separación de lógica",
+    "prompt": "por ultimo y hablando sobre las pages, se orquesto esto de tal forma que la logica se abstrenga de manejarse directamente en la pagina, algunos ejemplos:",
+    "notes": "Diseño de arquitectura donde las páginas solo orquestan y la lógica reside en componentes"
+}

@@ -3,14 +3,48 @@
 import { useState } from 'react';
 import { SeatMapEditor } from "@/components/seat-editor/seat-map-editor";
 import { WorkflowGuide } from "@/components/demo/workflow-guide";
+import { TemplateSelector } from "@/components/demo/template-selector";
 import { clx } from '@/utils/styles';
-import { Button } from '@/components/ui/button/button';
+import { ExamplesGallery } from '@/components/demo/example-gallery';
+
+interface Template {
+  id: string;
+  name: string;
+  description: string;
+  category: 'theater' | 'stadium' | 'conference' | 'custom';
+  seats: number;
+  image: string;
+}
+
+interface Example {
+  id: string;
+  name: string;
+  description: string;
+  complexity: 'simple' | 'medium' | 'complex';
+  useCase: string;
+  image: string;
+}
 
 export default function DemoPage() {
   const [showGuide, setShowGuide] = useState(true);
+  const [showTemplates, setShowTemplates] = useState(false);
+  const [showExamples, setShowExamples] = useState(false);
+  const [currentTemplate, setCurrentTemplate] = useState<string | null>(null);
+
+  const handleTemplateSelect = (template: Template) => {
+    setCurrentTemplate(template.name);
+    setShowTemplates(false);
+    console.log('Template selected:', template);
+  };
+
+  const handleExampleSelect = (example: Example) => {
+    setCurrentTemplate(example.name);
+    setShowExamples(false);
+    console.log('Example selected:', example);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">      
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -20,23 +54,34 @@ export default function DemoPage() {
             Prueba todas las funcionalidades del editor de mapas de asientos.
             Crea, edita, importa y exporta tus diseños.
           </p>
-
+          
+          {currentTemplate && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2 inline-flex items-center mb-4">
+              <span className="text-blue-700 text-sm">
+                🎯 Plantilla activa: <strong>{currentTemplate}</strong>
+              </span>
+            </div>
+          )}
+          
           <div className="flex flex-wrap justify-center gap-4 mb-6">
-            <Button
+            <button 
               onClick={() => setShowGuide(!showGuide)}
-              size='md'
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               {showGuide ? 'Ocultar Guía' : 'Mostrar Guía'}
-            </Button>
-            <Button size='md'
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+            </button>
+            <button 
+              onClick={() => setShowTemplates(true)}
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
               Nueva Plantilla
-            </Button>
-            <Button size='md'
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+            </button>
+            <button 
+              onClick={() => setShowExamples(true)}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+            >
               Ver Ejemplos
-            </Button>
+            </button>
           </div>
         </div>
 
@@ -46,18 +91,27 @@ export default function DemoPage() {
               <WorkflowGuide />
             </div>
           )}
-
+          
           <div className={clx(
             "bg-white rounded-lg shadow-lg overflow-hidden",
             showGuide ? "xl:col-span-3" : "xl:col-span-4"
           )}>
             <div className="p-4 border-b border-gray-200 bg-gray-50">
-              <h2 className="text-lg font-semibold text-gray-800">
-                Editor de Mapas de Asientos
-              </h2>
-              <p className="text-sm text-gray-600">
-                Arrastra y suelta elementos, configura propiedades y visualiza en tiempo real
-              </p>
+              <div className="flex justify-between items-center">
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-800">
+                    Editor de Mapas de Asientos
+                  </h2>
+                  <p className="text-sm text-gray-600">
+                    Arrastra y suelta elementos, configura propiedades y visualiza en tiempo real
+                  </p>
+                </div>
+                {currentTemplate && (
+                  <div className="text-sm text-gray-500">
+                    Plantilla: <span className="font-medium">{currentTemplate}</span>
+                  </div>
+                )}
+              </div>
             </div>
             <SeatMapEditor />
           </div>
@@ -147,6 +201,18 @@ export default function DemoPage() {
           </div>
         </div>
       </div>
+
+      <TemplateSelector 
+        isOpen={showTemplates}
+        onClose={() => setShowTemplates(false)}
+        onTemplateSelect={handleTemplateSelect}
+      />
+
+      <ExamplesGallery 
+        isOpen={showExamples}
+        onClose={() => setShowExamples(false)}
+        onExampleSelect={handleExampleSelect}
+      />
     </div>
   );
 }

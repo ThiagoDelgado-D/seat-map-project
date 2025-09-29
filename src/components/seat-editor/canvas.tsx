@@ -1,9 +1,10 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Stage, Layer, Rect, Text, Group } from 'react-konva';
 import type { KonvaEventObject } from 'konva/lib/Node';
 import { useSeatMapStore } from '@/store/seat-map-store';
+import { Row, Seat } from '@/types';
 
 export function Canvas() {
   const stageRef = useRef(null);
@@ -14,7 +15,16 @@ export function Canvas() {
     selectRow,
     selectSeat,
     addRow,
+    setSelectedRows,
+    setSelectedSeats,
   } = useSeatMapStore();
+
+  useEffect(() => {
+    if (currentMap?.workState) {
+      setSelectedRows(currentMap.workState.selectedRows || []);
+      setSelectedSeats(currentMap.workState.selectedSeats || []);
+    }
+  }, [currentMap, setSelectedRows, setSelectedSeats]);
 
   const handleStageClick = (e: KonvaEventObject<MouseEvent>) => {
     if (e.target === e.target.getStage()) {
@@ -69,6 +79,56 @@ export function Canvas() {
 
   return (
     <div className="w-full h-full bg-gradient-to-br from-slate-50 to-blue-50 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+      {(selectedRows.length > 0 || selectedSeats.length > 0) && (
+        <div className="absolute top-4 right-4 bg-white rounded-lg shadow-lg border border-gray-200 p-4 min-w-64 z-10">
+          <h3 className="font-semibold text-gray-900 mb-3">Selección Actual</h3>
+          
+          {selectedRows.length > 0 && (
+            <div className="mb-3">
+              <h4 className="text-sm font-medium text-gray-700 mb-2">
+                Filas Seleccionadas ({selectedRows.length})
+              </h4>
+              <div className="space-y-1 max-h-32 overflow-y-auto">
+                {currentMap.rows
+                  .filter((row: Row) => selectedRows.includes(row.id))
+                  .map((row: Row) => (
+                    <div key={row.id} className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">{row.label}</span>
+                      <span className="text-gray-400 text-xs">
+                        {row.seats.length} asientos
+                      </span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          )}
+
+          {selectedSeats.length > 0 && (
+            <div>
+              <h4 className="text-sm font-medium text-gray-700 mb-2">
+                Asientos Seleccionados ({selectedSeats.length})
+              </h4>
+              <div className="space-y-1 max-h-32 overflow-y-auto">
+                {currentMap.rows.flatMap((row: Row) => 
+                  row.seats.filter((seat: Seat) => selectedSeats.includes(seat.id))
+                    .map((seat: Seat) => (
+                      <div key={seat.id} className="flex items-center justify-between text-sm">
+                        <span className="text-gray-600">
+                          {row.label}-{seat.label}
+                        </span>
+                        <span className="text-gray-400 text-xs">
+                          Fila {row.label}
+                        </span>
+                      </div>
+                    ))
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       <Stage
         ref={stageRef}
         width={currentMap.width}
@@ -88,7 +148,7 @@ export function Canvas() {
             dash={[5, 5]}
           />
 
-          {currentMap.rows.map((row) => (
+          {currentMap.rows.map((row: Row) => (
             <Group key={row.id}>
               <Text
                 x={row.x - 90}
@@ -116,7 +176,7 @@ export function Canvas() {
                 onTap={handleGenericEvent((e) => handleRowClick(row.id, e))}
               />
 
-              {row.seats.map((seat) => (
+              {row.seats.map((seat: Seat) => (
                 <Group key={seat.id}>
                   <Rect
                     x={seat.x}

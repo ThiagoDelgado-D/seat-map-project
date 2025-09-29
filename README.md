@@ -155,14 +155,19 @@ export default function HomePage() {
 
 **1. Estado en Memoria**
 No hay persistencia en DB/localStorage por diseño del MVP. El estado vive solo durante la sesión.
+
 **2. IDs Únicos con Web Crypto API**
 Se usa crypto.randomUUID() para garantizar unicidad sin colisiones (RFC 4122 v4).
+
 **3. Validación de Etiquetas**
-Las etiquetas deben ser únicas dentro de su scope: - Filas: únicas globalmente en el mapa - Asientos: únicos dentro de cada fila
+Las etiquetas deben ser únicas dentro de su scope: - Filas: únicas globalmente en el mapa - Asientos: únicos dentro de cada fila.
+
 **4. Confirmación de Borrado**
 Modal de confirmación para prevenir pérdidas accidentales de datos.
+
 **5. Importación Destructiva**
 Al importar un JSON, se reemplaza completamente el estado actual (no merge).
+
 **6. Formato JSON Cerrado**
 El esquema es estricto para garantizar compatibilidad entre exportaciones/importaciones.
 

@@ -1,14 +1,9 @@
 "use client";
 
+import { FAQItem } from "@/constants/faq";
 import { DefaultProps } from "@/utils/components";
 import { clx } from "@/utils/styles";
 import { useState } from "react";
-
-export interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-}
 
 export interface FAQSectionProps extends DefaultProps {
   title?: string;

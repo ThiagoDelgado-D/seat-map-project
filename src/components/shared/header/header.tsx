@@ -1,17 +1,17 @@
+// components/layout/header.tsx
 import { clx } from "@/utils/styles";
 import { PropsWithChildren, useState } from "react";
 import { HeaderLogo } from "./header-logo";
 import { Button } from "@/components/ui/button/button";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export interface HeaderProps {
   className?: string;
   sticky?: boolean;
   variant?: "default" | "minimal" | "dark";
   onLogoClick?: () => void;
-  onLogin?: () => void;
-  onSignup?: () => void;
 }
 
 export function Header({
@@ -19,18 +19,21 @@ export function Header({
   sticky = true,
   variant = "default",
   onLogoClick,
-  onLogin,
-  onSignup,
   children,
 }: PropsWithChildren<HeaderProps>) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
-    { name: "Features", href: "#features" },
-    { name: "Demos", href: "/demo" },
+    { name: "Features", href: "/features" },
+    { name: "Demo", href: "/demo" },
     { name: "Pricing", href: "/pricing" },
-    { name: "Learn", href: "/docs" }
+    { name: "Docs", href: "/docs" }
   ];
+
+  const isActiveLink = (href: string) => {
+    return pathname === href;
+  };
 
   return (
     <header
@@ -53,45 +56,54 @@ export function Header({
                 key={link.name}
                 href={link.href}
                 className={clx(
-                  "text-sm font-medium transition-colors hover:opacity-80",
+                  "text-sm font-medium transition-colors hover:opacity-80 relative",
                   variant === "dark"
                     ? "text-header-dark-foreground"
                     : "text-foreground",
+                  isActiveLink(link.href) && "font-semibold"
                 )}
               >
                 {link.name}
+                {isActiveLink(link.href) && (
+                  <span className={clx(
+                    "absolute -bottom-6 left-0 w-full h-0.5",
+                    variant === "dark" ? "bg-header-accent" : "bg-blue-600"
+                  )} />
+                )}
               </Link>
             ))}
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <Button
-              onClick={onLogin}
-              flavor="outline"
-              color={variant === "dark" ? "none" : "primary"}
-              size="md"
-              className={clx(
-                "uppercase tracking-wide",
-                variant === "dark" ? "text-header-dark-foreground border-header-dark-foreground/30 hover:bg-header-dark-foreground/10" : ""
-              )}
-            >
-              Log in
-            </Button>
-            <Button
-              onClick={onSignup}
-              flavor="raised"
-              color="primary"
-              size="md"
-              className={clx(
-                "uppercase tracking-wide",
-                variant === "dark" ? "bg-header-accent text-header-dark hover:bg-header-accent/90" : ""
-              )}
-            >
-              Sign up
-            </Button>
+            <Link href="/signin">
+              <Button
+                flavor="outline"
+                color={variant === "dark" ? "none" : "primary"}
+                size="md"
+                className={clx(
+                  "uppercase tracking-wide",
+                  variant === "dark" ? "text-header-dark-foreground border-header-dark-foreground/30 hover:bg-header-dark-foreground/10" : ""
+                )}
+              >
+                Log in
+              </Button>
+            </Link>
+            <Link href="/signup">
+              <Button
+                flavor="raised"
+                color="primary"
+                size="md"
+                className={clx(
+                  "uppercase tracking-wide",
+                  variant === "dark" ? "bg-header-accent text-header-dark hover:bg-header-accent/90" : ""
+                )}
+              >
+                Sign up
+              </Button>
+            </Link>
           </div>
           
-          <button
+          <Button
             onClick={() => setMobileOpen(!mobileOpen)}
             className={clx(
               "md:hidden p-2 rounded-md transition-colors",
@@ -105,7 +117,7 @@ export function Header({
             ) : (
               <Menu className="w-6 h-6" />
             )}
-          </button>
+          </Button>
         </div>
 
         {mobileOpen && (
@@ -127,39 +139,46 @@ export function Header({
                     variant === "dark"
                       ? "text-header-dark-foreground hover:opacity-80"
                       : "text-foreground hover:opacity-80",
+                    isActiveLink(link.href) && clx(
+                      "font-semibold",
+                      variant === "dark" ? "text-header-accent" : "text-blue-600"
+                    )
                   )}
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
-              <div className="flex flex-col gap-3 pt-4">
-                <Button
-                  onClick={onLogin}
-                  flavor="outline"
-                  color={variant === "dark" ? "none" : "primary"}
-                  size="md"
-                  fullWidth
-                  className={clx(
-                    "uppercase tracking-wide justify-center",
-                    variant === "dark" ? "text-header-dark-foreground border-header-dark-foreground/30 hover:bg-header-dark-foreground/10" : ""
-                  )}
-                >
-                  Log in
-                </Button>
-                <Button
-                  onClick={onSignup}
-                  flavor="raised"
-                  color="primary"
-                  size="md"
-                  fullWidth
-                  className={clx(
-                    "uppercase tracking-wide justify-center",
-                    variant === "dark" ? "bg-header-accent text-header-dark hover:bg-header-accent/90" : ""
-                  )}
-                >
-                  Sign up
-                </Button>
+              
+              <div className="flex flex-col gap-3 pt-4 border-t border-gray-200">
+                <Link href="/signin" onClick={() => setMobileOpen(false)}>
+                  <Button
+                    flavor="outline"
+                    color={variant === "dark" ? "none" : "primary"}
+                    size="md"
+                    fullWidth
+                    className={clx(
+                      "uppercase tracking-wide justify-center",
+                      variant === "dark" ? "text-header-dark-foreground border-header-dark-foreground/30 hover:bg-header-dark-foreground/10" : ""
+                    )}
+                  >
+                    Log in
+                  </Button>
+                </Link>
+                <Link href="/signup" onClick={() => setMobileOpen(false)}>
+                  <Button
+                    flavor="raised"
+                    color="primary"
+                    size="md"
+                    fullWidth
+                    className={clx(
+                      "uppercase tracking-wide justify-center",
+                      variant === "dark" ? "bg-header-accent text-header-dark hover:bg-header-accent/90" : ""
+                    )}
+                  >
+                    Sign up
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

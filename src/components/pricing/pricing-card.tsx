@@ -2,16 +2,7 @@
 
 import { clx } from "@/utils/styles";
 import { Button } from "../ui/button/button";
-
-export interface PricingPlan {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  usedSeats: number;
-  additionalSeatCost: string;
-  featured?: boolean;
-}
+import { PricingPlan } from "@/constants/pricing";
 
 interface PricingCardProps {
   plan: PricingPlan;
@@ -89,7 +80,7 @@ export function PricingCard({
             flavor="raised"
             color={plan.featured ? "primary" : "secondary"}
             fullWidth
-            size="lg"
+            size="md"
           >
             {billingPeriod === "monthly"
               ? `Monthly ${plan.name}`

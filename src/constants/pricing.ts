@@ -11,6 +11,16 @@ export interface EnterprisePlan {
   };
 }
 
+export interface PricingPlan {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
+  usedSeats: number;
+  additionalSeatCost: string;
+  featured?: boolean;
+}
+
 export const PRICING_FEATURES = [
   {
     id: "value-based",

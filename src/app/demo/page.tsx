@@ -6,24 +6,7 @@ import { WorkflowGuide } from "@/components/demo/workflow-guide";
 import { TemplateSelector } from "@/components/demo/template-selector";
 import { clx } from '@/utils/styles';
 import { ExamplesGallery } from '@/components/demo/example-gallery';
-
-interface Template {
-  id: string;
-  name: string;
-  description: string;
-  category: 'theater' | 'stadium' | 'conference' | 'custom';
-  seats: number;
-  image: string;
-}
-
-interface Example {
-  id: string;
-  name: string;
-  description: string;
-  complexity: 'simple' | 'medium' | 'complex';
-  useCase: string;
-  image: string;
-}
+import { Example, Template } from '@/constants/demo';
 
 export default function DemoPage() {
   const [showGuide, setShowGuide] = useState(true);

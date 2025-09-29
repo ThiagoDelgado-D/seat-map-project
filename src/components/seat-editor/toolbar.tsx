@@ -48,7 +48,6 @@ export function Toolbar() {
     }
   };
 
-  // REQUERIMIENTO FALTANTE: Pedir nombre antes de exportar
   const handleRequestExport = () => {
     if (currentMap) {
       setExportMapName(currentMap.name);

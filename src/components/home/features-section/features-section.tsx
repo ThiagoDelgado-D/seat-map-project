@@ -1,4 +1,3 @@
-// components/home/features-section.tsx
 "use client";
 
 import { DefaultProps } from "@/utils/components";
@@ -6,11 +5,8 @@ import { clx } from "@/utils/styles";
 import Image from "next/image";
 import { PropsWithChildren } from "react";
 import Link from "next/link";
+import { FeatureItem } from "@/constants/features";
 
-export interface FeatureItem {
-  id: string;
-  text: string;
-}
 
 export interface FeatureSectionProps extends DefaultProps {
     title?: string;

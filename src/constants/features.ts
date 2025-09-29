@@ -8,3 +8,8 @@ export const renderer_features = [
   { id: "display", text: "Display any chart on your platform." },
   { id: "devices", text: "Mobile and desktop." },
 ];
+
+export interface FeatureItem {
+  id: string;
+  text: string;
+}

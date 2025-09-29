@@ -160,7 +160,9 @@ No hay persistencia en DB/localStorage por diseño del MVP. El estado vive solo 
 Se usa crypto.randomUUID() para garantizar unicidad sin colisiones (RFC 4122 v4).
 
 **3. Validación de Etiquetas**
-Las etiquetas deben ser únicas dentro de su scope: - Filas: únicas globalmente en el mapa - Asientos: únicos dentro de cada fila.
+Las etiquetas deben ser únicas dentro de su scope: 
+  - Filas: únicas globalmente en el mapa 
+  - Asientos: únicos dentro de cada fila.
 
 **4. Confirmación de Borrado**
 Modal de confirmación para prevenir pérdidas accidentales de datos.

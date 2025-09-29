@@ -172,4 +172,46 @@ export const ENTERPRISE_PLANS: EnterprisePlan[] = [
     }
   }
 ];
+
+export const BASE_PLANS: Record<"monthly" | "yearly", PricingPlan[]> = {
+  monthly: [
+    {
+      id: "silver",
+      name: "Silver",
+      price: "<450",
+      description: "Perfect for growing businesses",
+      usedSeats: 2500,
+      additionalSeatCost: "0.18",
+    },
+    {
+      id: "gold",
+      name: "Gold",
+      price: "6,000",
+      description: "For high-volume enterprises",
+      usedSeats: 6000,
+      additionalSeatCost: "0.12",
+      featured: true,
+    },
+  ],
+  yearly: [
+    {
+      id: "silver",
+      name: "Silver",
+      price: "6,000",
+      description: "Perfect for growing businesses",
+      usedSeats: 5000,
+      additionalSeatCost: "0.18",
+    },
+    {
+      id: "gold",
+      name: "Gold",
+      price: "60,000",
+      description: "For high-volume enterprises",
+      usedSeats: 72000,
+      additionalSeatCost: "0.12",
+      featured: true,
+    },
+  ],
+};
+
 export const DEFAULT_PLANS = ENTERPRISE_PLANS;

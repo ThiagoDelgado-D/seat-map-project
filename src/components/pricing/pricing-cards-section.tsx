@@ -3,8 +3,9 @@
 import { DefaultProps } from "@/utils/components";
 import { clx } from "@/utils/styles";
 import { useState } from "react";
-import { PricingCard, PricingPlan } from "./pricing-card";
+import { PricingCard } from "./pricing-card";
 import { BillingToggle } from "./billing-toggle";
+import { BASE_PLANS, PricingPlan } from "@/constants/pricing";
 
 export interface PricingCardsSectionProps extends DefaultProps {
   title?: string;
@@ -14,47 +15,6 @@ export interface PricingCardsSectionProps extends DefaultProps {
   onViewExample?: (planId: string) => void;
   id?: string;
 }
-
-const DEFAULT_PLANS: Record<"monthly" | "yearly", PricingPlan[]> = {
-  monthly: [
-    {
-      id: "silver",
-      name: "Silver",
-      price: "<450",
-      description: "Perfect for growing businesses",
-      usedSeats: 2500,
-      additionalSeatCost: "0.18",
-    },
-    {
-      id: "gold",
-      name: "Gold",
-      price: "6,000",
-      description: "For high-volume enterprises",
-      usedSeats: 6000,
-      additionalSeatCost: "0.12",
-      featured: true,
-    },
-  ],
-  yearly: [
-    {
-      id: "silver",
-      name: "Silver",
-      price: "6,000",
-      description: "Perfect for growing businesses",
-      usedSeats: 5000,
-      additionalSeatCost: "0.18",
-    },
-    {
-      id: "gold",
-      name: "Gold",
-      price: "60,000",
-      description: "For high-volume enterprises",
-      usedSeats: 72000,
-      additionalSeatCost: "0.12",
-      featured: true,
-    },
-  ],
-};
 
 export function PricingCardsSection({
   className,
@@ -67,7 +27,7 @@ export function PricingCardsSection({
 }: PricingCardsSectionProps) {
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
   
-  const displayPlans = plans || DEFAULT_PLANS[billingPeriod];
+  const displayPlans = plans || BASE_PLANS[billingPeriod];
 
   const handlePlanSelect = (planId: string) => {
     onPlanSelect(planId, billingPeriod);

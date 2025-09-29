@@ -97,7 +97,6 @@ export function PhoneModel({ videoSrc }: PhoneModelProps) {
         </div>
       </div>
       
-      {/* Ambient Glow */}
       <div className="absolute inset-0 bg-gradient-radial from-primary/20 via-transparent to-transparent blur-3xl -z-10"></div>
     </div>
   );

@@ -143,3 +143,10 @@ export const complexityFilters = [
   { id: "medium", name: "Media", color: "yellow" },
   { id: "complex", name: "Compleja", color: "red" },
 ];
+
+export interface WorkflowStep {
+  id: number;
+  title: string;
+  description: string;
+  status: 'pending' | 'current' | 'completed';
+}

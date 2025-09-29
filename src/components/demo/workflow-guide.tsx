@@ -2,13 +2,8 @@
 
 import { useState } from 'react';
 import { clx } from '@/utils/styles';
-
-interface WorkflowStep {
-  id: number;
-  title: string;
-  description: string;
-  status: 'pending' | 'current' | 'completed';
-}
+import { WorkflowStep } from '@/constants/demo';
+import { Button } from '../ui/button/button';
 
 interface WorkflowGuideProps {
   className?: string;
@@ -122,7 +117,8 @@ export function WorkflowGuide({ className }: WorkflowGuideProps) {
       </div>
 
       <div className="flex justify-between items-center">
-        <button
+        <Button
+          size='md'
           onClick={prevStep}
           disabled={currentStep === 1}
           className={clx(
@@ -133,13 +129,12 @@ export function WorkflowGuide({ className }: WorkflowGuideProps) {
           )}
         >
           Anterior
-        </button>
-        
+        </Button>
         <div className="text-sm text-gray-500">
           Paso {currentStep} de {steps.length}
         </div>
-        
-        <button
+        <Button
+          size='md'
           onClick={nextStep}
           disabled={currentStep === steps.length}
           className={clx(
@@ -150,7 +145,7 @@ export function WorkflowGuide({ className }: WorkflowGuideProps) {
           )}
         >
           Siguiente
-        </button>
+        </Button>
       </div>
 
       <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
